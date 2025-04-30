@@ -257,9 +257,15 @@ function trackButtonClicks() {
             
             // Rastrear evento de clique no Facebook Pixel (Lead)
             if (typeof fbq === 'function') {
-                fbq('track', 'Lead', {
+                fbq('track', 'Contact', {
                     content_name: 'Warley Viana - Grupo de Lives',
-                    content_category: 'Telegram Subscription'
+                    content_category: 'Telegram Button'
+                });
+                
+                // Rastrear o mesmo evento para o novo pixel
+                fbq('track', 'Contact', {
+                    content_name: 'Warley Viana - Grupo de Lives',
+                    content_category: 'Telegram Button'
                 });
             }
             
