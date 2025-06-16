@@ -5,18 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar dataLayer para GTM
     window.dataLayer = window.dataLayer || [];
     
-    // Funções para o loading overlay
-    // Mostrar o loading overlay imediatamente ao carregar a página
-    progressInterval = showLoadingOverlay();
-    
-    // Iniciar o contador de pessoas entrando
-    updatePeopleCounter();
-    
-    // Iniciar o temporizador para redirecionamento automático após 5 segundos
-    console.log('Iniciando temporizador para redirecionamento automático...');
-    setTimeout(autoRedirect, 5000); // 5000 ms = 5 segundos
-    
-    // Animações e interatividade para o resto da página (caso o usuário feche o overlay)
+    // Animações e interatividade para a página
     initAnimations();
     initButtonEffects();
     initScrollEffects();
@@ -372,119 +361,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Função para mostrar o loading overlay e animar a barra de progresso
-function showLoadingOverlay() {
-    const overlay = document.getElementById('loadingOverlay');
-    const progressBar = document.getElementById('loadingProgressBar');
-    
-    if (overlay && progressBar) {
-        overlay.style.opacity = '1';
-        overlay.style.visibility = 'visible';
-        overlay.classList.add('active');
-        
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += 1;
-            progressBar.style.width = `${progress}%`;
-            
-            if (progress >= 100) {
-                clearInterval(interval);
-            }
-        }, 50); // Velocidade da barra de progresso (50ms = 5 segundos para completar)
-        
-        return interval;
-    }
-    
-    return null;
-}
+// Função removida: showLoadingOverlay
 
-// Função para atualizar o contador de pessoas entrando
-function updatePeopleCounter() {
-    const peopleCount = document.getElementById('peopleCount');
-    
-    if (peopleCount) {
-        // Iniciar com um número aleatório entre 35 e 55
-        let count = Math.floor(Math.random() * 21) + 35;
-        peopleCount.textContent = count;
-        
-        // Atualizar o contador periodicamente
-        setInterval(() => {
-            // Adicionar um número aleatório entre -2 e +4
-            const change = Math.floor(Math.random() * 7) - 2;
-            count = Math.max(30, Math.min(60, count + change));
-            
-            // Adicionar classe de destaque temporariamente
-            peopleCount.textContent = count;
-            peopleCount.classList.add('highlight');
-            
-            setTimeout(() => {
-                peopleCount.classList.remove('highlight');
-            }, 500);
-        }, 2000);
-    }
-}
+// Função removida: updatePeopleCounter
 
-// Função para redirecionamento automático
-function autoRedirect() {
-    // URL de destino do Telegram (obtida do botão CTA)
-    const ctaButton = document.querySelector('.cta-button');
-    const telegramUrl = ctaButton ? ctaButton.getAttribute('href') : 'https://t.me/+qPv_b0RyYBtjYmQx';
-    
-    console.log('Iniciando redirecionamento automático para:', telegramUrl);
-    
-    // Rastrear evento de redirecionamento no Facebook Pixel (Lead)
-    if (typeof fbq === 'function') {
-        fbq('track', 'Lead', {
-            content_name: 'Warley Viana - Grupo VIP',
-            content_category: 'Telegram Subscription'
-        });
-    }
-    
-    // Obter todos os parâmetros da URL de uma vez
-    const params = getAllUrlParameters();
-    
-    // Dados para enviar ao n8n
-    const data = {
-        expert: 'warleyviana'
-    };
-    
-    // Adicionar todos os parâmetros da URL ao objeto data
-    for (const key in params) {
-        if (params.hasOwnProperty(key)) {
-            data[key] = params[key];
-            console.log(`Adicionando parâmetro ao objeto de dados: ${key}=${params[key]}`);
-        }
-    }
-    
-    console.log('Dados para enviar ao n8n:', data);
-    
-    // Endpoint do n8n
-    const n8nEndpoint = 'https://whkn8n.meumenu2023.uk/webhook/fbclid-landingpage';
-    
-    // Converter para string JSON
-    const jsonData = JSON.stringify(data);
-    console.log('JSON a ser enviado:', jsonData);
-    
-    // Enviar dados para o n8n via POST
-    fetch(n8nEndpoint, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'text/plain;charset=UTF-8',
-        },
-        body: jsonData,
-        mode: 'no-cors'
-    })
-    .then(response => {
-        console.log('Resposta do servidor recebida');
-        // Redirecionar para o Telegram após o envio dos dados
-        window.location.href = telegramUrl;
-    })
-    .catch(error => {
-        console.error('Erro ao enviar dados:', error);
-        // Em caso de erro, redirecionar mesmo assim
-        window.location.href = telegramUrl;
-    });
-}
+// Função removida: autoRedirect
 
 // Adicionar contador de pessoas online (simulado)
 function initOnlineCounter() {
